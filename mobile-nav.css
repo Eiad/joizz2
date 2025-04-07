@@ -1,0 +1,257 @@
+/* Mobile Header and Navigation */
+.mobile-header {
+    display: none;
+    background-color: white;
+    padding: 10px 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    align-items: center;
+    justify-content: space-between;
+    direction: rtl; /* Override RTL for the hamburger menu positioning */
+    height: 60px; /* Fixed height for consistency */
+}
+
+.menu-toggle {
+    background: transparent;
+    border: none;
+    color: #b5639f;
+    font-size: 20px; /* Slightly larger for better tap target */
+    cursor: pointer;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+}
+
+.mobile-logo {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-logo img {
+    height: 50px;
+    max-width: 100px;
+    object-fit: contain;
+}
+
+/* Side Navigation */
+.mobile-sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.3s;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    direction: rtl; /* Maintain RTL for the content */
+}
+
+.sidenav-header {
+    padding: 15px;
+    background-color: #b5639f;
+    display: flex;
+    justify-content: flex-start;
+    height: 60px; /* Match header height */
+}
+
+.close-sidenav {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidenav-content {
+    padding: 0;
+    overflow-y: auto;
+    height: calc(100% - 60px); /* Full height minus header */
+}
+
+.sidenav-user {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    background-color: #f9f9f9;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info span {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 4px;
+}
+
+.user-info a {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+.sidenav-links {
+    padding: 10px 0;
+}
+
+.sidenav-link {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.sidenav-link:hover {
+    background-color: #f5f5f5;
+}
+
+.sidenav-link.active {
+    background-color: #f5f5f5;
+    border-right: 3px solid #b5639f;
+}
+
+.sidenav-link i {
+    /* margin-right: 10px; */
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+    color: #b5639f;
+    margin-left: 15px;
+}
+
+.sidenav-contact {
+    padding: 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+.sidenav-contact p {
+    margin: 0;
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.sidenav-contact .phone {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 5px 0 15px;
+    text-decoration: none;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #b5639f;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.social-icon:hover {
+    background-color: #a0548c;
+}
+
+.sidenav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+/* Media Queries */
+@media (max-width: 991px) {
+    .top-bar, .main-nav {
+        display: none;
+    }
+    
+    .mobile-header {
+        display: flex;
+    }
+    
+    body {
+        padding-top: 60px; /* Add space for fixed header */
+    }
+
+    /* Additional mobile styles for the category page */
+    .categories-header {
+        margin-top: 0;
+        padding: 20px 0;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .breadcrumb {
+        font-size: 0.8rem;
+    }
+
+    .main-categories .container {
+        padding: 0 15px;
+    }
+
+    .categories-grid {
+        gap: 15px;
+        padding: 15px 0;
+    }
+
+    .footer-container {
+        padding: 30px 15px 15px;
+    }
+
+    .footer-top {
+        gap: 20px;
+    }
+    
+    .whatsapp-btn {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-logo img {
+        height: 40px;
+    }
+    
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+} 

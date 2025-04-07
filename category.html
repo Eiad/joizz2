@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفئات - Jojiz</title>
+    <link rel="stylesheet" href="categories.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="mobile-nav.css">
+    <style>
+        /* Additional mobile fixes for this page */
+        @media (max-width: 768px) {
+            .main-categories .container {
+                width: 100%;
+                padding: 0 15px;
+            }
+            
+            section.main-categories {
+                margin-bottom: 30px;
+            }
+            
+            .footer-container {
+                padding: 30px 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Navigation -->
+    <div class="mobile-header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="mobile-logo">
+            <a href="/">
+                <img src="img/jojiz.png" alt="Jojiz Logo">
+            </a>
+        </div>
+    </div>
+    
+    <!-- Mobile Side Navigation -->
+    <div class="mobile-sidenav" id="mobileSidenav">
+        <div class="sidenav-header">
+            <button class="close-sidenav" id="closeSidenav">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="sidenav-content">
+            <div class="sidenav-user">
+                <div class="user-info">
+                    <span>WELCOME</span>
+                    <a href="login.html" class="login-register" id="mobileAuthLink">LOGIN/REGISTER</a>
+                </div>
+            </div>
+            <div class="sidenav-links">
+                <a href="index.html" class="sidenav-link">
+                    <i class="fas fa-home"></i>
+                    <span>الصفحة الرئيسية</span>
+                </a>
+                <a href="products.html" class="sidenav-link">
+                    <i class="fas fa-store"></i>
+                    <span>المتجر</span>
+                </a>
+                <a href="category.html" class="sidenav-link active">
+                    <i class="fas fa-list"></i>
+                    <span>الفئات</span>
+                </a>
+                <a href="cart.html" class="sidenav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>سلة التسوق</span>
+                </a>
+                <!-- <a href="#" class="sidenav-link lang-switch">
+                    <i class="fas fa-globe"></i>
+                    <span>تغيير اللغة</span>
+                </a> -->
+            </div>
+            <div class="sidenav-contact">
+                <p>HOTLINE 24/7</p>
+                <a href="tel:01017620115" class="phone">01017620115</a>
+                <div class="social-icons">
+                    <!-- Social media links will be loaded dynamically from the API -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Overlay for when sidenav is open -->
+    <div class="sidenav-overlay" id="sidenavOverlay"></div>
+    <!-- Top Navigation Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="left-section">
+                <span class="hotline">HOTLINE 24/7</span>
+                <a href="tel:01017620115" class="phone">01017620115</a>
+            </div>
+            <div class="right-section">
+                <div class="cart">
+                    <span id="cart-total">0.00EGP</span>
+                    <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+                <!-- <a href="#" class="language-switch">تغيير اللغة</a> -->
+                <div class="auth">
+                    <span>WELCOME</span>
+                    <a href="#" class="login-register">LOGIN/REGISTER</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <img src="img/jojiz.png" alt="Jojiz Logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="lang-switch">ar<i class="fas fa-globe"></i></a>
+                <a href="products.html">المتجر</a>
+                <a href="category.html">الفئات</a>
+                <a href="index.html">الصفحة الرئيسية</a>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="بحث">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Categories Header -->
+    <section class="categories-header">
+        <div class="container">
+            <h1 class="page-title">تسوق حسب الفئة</h1>
+            <div class="breadcrumb">
+                <a href="/">الرئيسية</a>
+                <i class="fas fa-chevron-left"></i>
+                <span>الفئات</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Categories Grid -->
+    <section class="main-categories">
+        <div class="container">
+            <div class="categories-grid">
+                <!-- Categories will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <a href="#" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">الصفحة الرئيسية</a></li>
+                        <li><a href="products.html">المتجر</a></li>
+                        <li><a href="cart.html">سلة التسوق</a></li>
+                        <li><a href="#">سياسة الخصوصية</a></li>
+                        <li><a href="#">الشروط والأحكام</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column" id="contact-column">
+                    <h3>اتصل بنا</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-home"></i> October</p>
+                        <p><i class="fas fa-phone"></i> <a href="tel:01017620115">01017620115</a></p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:jojiz@jojiz.com">jojiz@jojiz.com</a></p>
+                    </div>
+                    <div class="social-links">
+                        <!-- Social media links will be loaded dynamically from the API -->
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>عن جوجيز</h3>
+                    <p class="about-text">
+                        جوجيز هو متجر متخصص في ملابس الأطفال بتصميمات عصرية وخامات عالية الجودة. نسعى دائماً لتقديم أفضل المنتجات بأسعار مناسبة لجميع العملاء.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>حقوق الطبع والنشر © Jojiz 2025. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/categories.js"></script>
+    <script src="mobile-nav.js"></script>
+    <script src="script.js"></script>
+    <script src="js/social-media.js"></script>
+
+    <script>
+        // Add this to make active link in mobile nav
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight current page in mobile nav
+            const currentPage = window.location.pathname.split('/').pop();
+            const mobileLinks = document.querySelectorAll('.sidenav-link');
+            
+            mobileLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const currentUser = localStorage.getItem('currentUser');
+            const authLink = document.querySelector('.auth .login-register');
+            
+            if (isLoggedIn && currentUser) {
+                // User is logged in, update auth link
+                const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                if (userData) {
+                    // Change LOGIN/REGISTER to LOGOUT
+                    authLink.textContent = 'LOGOUT (' + userData.name + ')';
+                    authLink.href = '#';
+                    authLink.onclick = function(e) {
+                        e.preventDefault();
+                        localStorage.removeItem('isLoggedIn');
+                        localStorage.removeItem('currentUser');
+                        window.location.reload();
+                    };
+                }
+            }
+        });
+    </script>
+</body>
+</html>
