@@ -2825,6 +2825,8 @@ html, body {
 
 .banner-slide {
     display: none;
+    max-width: 1400px;
+    margin: 0 auto;
     opacity: 0;
     transition: opacity 0.5s ease;
 }
@@ -2855,7 +2857,7 @@ html, body {
     box-shadow: var(--shadow);
     width: 100% !important;
     height: 100%; /* Changed to 100% to fill container */
-    object-fit: contain; /* Ensures image covers the area without distortion */
+    object-fit: fill; /* Ensures image covers the area without distortion */
     margin-top: -20px;
 }
 

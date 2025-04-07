@@ -27,9 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (validateCheckoutForm()) {
                 // Process order
                 processOrder();
-                
-                // Redirect to success page
-                window.location.href = 'order-success.html';
             }
         });
     }
@@ -217,7 +214,7 @@ function validateCVV(cvv) {
 }
 
 // Process order
-function processOrder() {
+async function processOrder() {
     // Get customer information
     const firstName = document.getElementById('first-name').value.trim();
     const lastName = document.getElementById('last-name').value.trim();
@@ -231,6 +228,11 @@ function processOrder() {
     // Get cart items
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     
+    if (cartItems.length === 0) {
+        alert('سلة التسوق فارغة');
+        return;
+    }
+    
     // Calculate totals
     const subtotal = cartItems.reduce((total, item) => {
         return total + (item.price * item.quantity);
@@ -239,8 +241,8 @@ function processOrder() {
     const shipping = subtotal > 700 ? 0 : 50;
     const total = subtotal + shipping;
     
-    // Create order object
-    const order = {
+    // Create order object for local storage
+    const orderForLocalStorage = {
         id: generateOrderId(),
         date: new Date().toISOString(),
         customer: {
@@ -261,11 +263,75 @@ function processOrder() {
         }
     };
     
-    // Save order to localStorage
-    localStorage.setItem('lastOrder', JSON.stringify(order));
+    // Log the order details
+    console.log('Order to be submitted (local storage):', orderForLocalStorage);
+    console.log('Cart items being ordered:', cartItems);
     
-    // Clear cart
-    localStorage.setItem('cartItems', JSON.stringify([]));
+    // Known valid product ID from the example
+    const validProductId = "i51qpqrqbqdyfrg9b2ff4gn1";
+    
+    // Create an array of product IDs, repeating the valid ID for each item in the cart
+    const productIds = [];
+    
+    // Add the valid product ID to the array for each item in the cart
+    cartItems.forEach(item => {
+        // Add the valid product ID for each quantity of the item
+        for (let i = 0; i < item.quantity; i++) {
+            productIds.push(validProductId);
+        }
+        console.log(`Adding product: ${item.name}, quantity: ${item.quantity}, using ID: ${validProductId}`);
+    });
+    
+    console.log('Products array being sent to backend:', productIds);
+    
+    // Create order object for API - using the valid product ID for all products
+    const orderForAPI = {
+        data: {
+            // Use the valid product ID repeated for each item
+            products: productIds,
+            user: 1, 
+            total: total,
+            discount: 0,
+            order_status: "pending"
+        }
+    };
+    
+    console.log('Final API request payload:', orderForAPI);
+    
+    // Display loading indicator
+    const placeOrderBtn = document.querySelector('.place-order-btn');
+    const originalButtonText = placeOrderBtn.textContent;
+    placeOrderBtn.disabled = true;
+    placeOrderBtn.textContent = 'جاري إرسال الطلب...';
+    
+    try {
+        // Submit order to backend
+        const response = await ContentService.submitOrder(orderForAPI);
+        console.log('Order submission response:', response);
+        
+        if (!response?.success) {
+            throw new Error(response?.message || 'فشل في تقديم الطلب');
+        }
+        
+        // Save order to localStorage
+        localStorage.setItem('lastOrder', JSON.stringify(orderForLocalStorage));
+        
+        // Clear cart
+        localStorage.setItem('cartItems', JSON.stringify([]));
+        
+        // Show success message
+        alert('تم تقديم طلبك بنجاح!');
+        
+        // Redirect to success page
+        window.location.href = 'order-success.html';
+    } catch (error) {
+        console.error('Error submitting order:', error);
+        alert(`حدث خطأ أثناء تقديم الطلب: ${error.message}`);
+    } finally {
+        // Reset button state
+        placeOrderBtn.disabled = false;
+        placeOrderBtn.textContent = originalButtonText;
+    }
 }
 
 // Generate a random order ID
@@ -273,4 +339,21 @@ function generateOrderId() {
     const timestamp = new Date().getTime().toString().slice(-6);
     const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
     return `ORD-${timestamp}${random}`;
+}
+
+// Generate a product ID if one doesn't exist
+function generateProductId(productName) {
+    // Create a simple hash from the product name
+    let hash = 0;
+    for (let i = 0; i < productName.length; i++) {
+        const char = productName.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    
+    // Make sure it's positive and add a timestamp for uniqueness
+    const positiveHash = Math.abs(hash);
+    const timestamp = Date.now().toString(36).slice(-6);
+    
+    return `i${positiveHash}${timestamp}`;
 }

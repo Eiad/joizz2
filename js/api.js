@@ -164,8 +164,47 @@ const ContentService = {
             console.error('Error fetching social media links:', error);
             return { success: false, message: 'Network error. Please try again.', data: null };
         }
+    },
+    
+    // Submit order to backend
+    submitOrder: async (orderData, locale = null) => {
+        try {
+            // Use provided locale or get current locale
+            const currentLocale = locale || ContentService.getCurrentLocale();
+            console.log(`Submitting order: locale=${currentLocale}`);
+            
+            const url = `${API_BASE_URL}/api/orders?locale=${currentLocale}`;
+            console.log('Order submission URL:', url);
+            console.log('Order data being submitted:', orderData);
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQyOTk2MDk1LCJleHAiOjE3NDU1ODgwOTV9.A7mkkpstEmTvcXaDOMa20q5gQO85m2-OutQXKB_9HCM'
+                },
+                body: JSON.stringify(orderData)
+            });
+            
+            const data = await response.json();
+            console.log('Order submission response:', data);
+            
+            if (data.error) {
+                console.error('Order submission returned error:', data.error);
+                return { success: false, message: data.error?.message || 'Unknown error', data: null };
+            }
+            
+            return { 
+                success: true, 
+                data: data.data || {},
+                meta: data.meta || null
+            };
+        } catch (error) {
+            console.error('Error submitting order:', error);
+            return { success: false, message: 'Network error. Please try again.', data: null };
+        }
     }
-}; 
+};
 /////////////////////////////////////////////////////////////
 // Get all products
 getProducts: async (locale = null) => {
